@@ -7,15 +7,13 @@ frappe.ui.form.on("Expense Claim", {
                     args: { name: frm.doc.name },
                     callback(r) {
                         if (!r.message) {
-                            frappe.msgprint("Failed to generate PDF");
+                            frappe.msgprint("PDF generation failed");
                             return;
                         }
 
-                        const pdfData = "data:application/pdf;base64," + r.message;
-                        const w = window.open();
-                        w.document.write(
-                            `<iframe src="${pdfData}" style="width:100%; height:100%; border:none;"></iframe>`
-                        );
+                        let pdf = "data:application/pdf;base64," + r.message;
+                        let win = window.open();
+                        win.document.write(`<iframe src="${pdf}" style="width:100%;height:100%;border:none;"></iframe>`);
                     }
                 });
             }).addClass("btn-primary");
